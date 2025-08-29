@@ -7,7 +7,7 @@ import os
 
 app = Flask(__name__)
 app.secret_key = "segredo123"
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode="threading")
 
 # -------------------
 # Configuração do Banco SQLite
