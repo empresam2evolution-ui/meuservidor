@@ -156,5 +156,10 @@ def handleMessage(msg):
     db.session.commit()
     send(f"{user}: {msg}", broadcast=True)
 
-if __name__ == "__main__":
-    socketio.run(app, debug=True)
+if _name_ == "_main_":
+    socketio.run(
+        app,
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        allow_unsafe_werkzeug=True
+    )
