@@ -156,7 +156,7 @@ def handleMessage(msg):
     db.session.commit()
     send(f"{user}: {msg}", broadcast=True)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     socketio.run(
         app,
         host="0.0.0.0",
