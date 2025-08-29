@@ -1,0 +1,131 @@
+/* Reset básico */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #0a0a0a;
+    color: #00ff00;
+}
+
+/* Títulos */
+h2, h3 {
+    color: #00ff99;
+    text-shadow: 0 0 10px #00ff99;
+}
+
+/* Links */
+a {
+    color: #00ff99;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #00cc66;
+}
+
+/* Botões */
+button {
+    background-color: #111;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    transition: 0.3s;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+button:hover {
+    background-color: #00ff00;
+    color: #111;
+    box-shadow: 0 0 20px #00ff99;
+}
+
+/* Inputs e selects */
+input, select {
+    background-color: #111;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 6px;
+    margin: 5px 0;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 0 5px #00ff00;
+}
+
+/* Tabelas */
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #00ff00;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #111;
+    color: #00ff99;
+    text-shadow: 0 0 5px #00ff99;
+}
+
+td {
+    color: #00ff66;
+}
+
+/* Chat */
+#messages {
+    background-color: #111;
+    border: 1px solid #00ff00;
+    padding: 10px;
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+#messages p {
+    margin: 4px 0;
+    white-space: pre-wrap;
+}
+
+/* Gráfico Chart.js */
+canvas {
+    background-color: #111 !important;
+    box-shadow: 0 0 10px #00ff00;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+/* ===== RESPONSIVO ===== */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    h2, h3 {
+        font-size: 18px;
+    }
+
+    input, select, button {
+        width: 90%;
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    #messages {
+        height: 250px;
+        font-size: 14px;
+    }
+
+    table {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    canvas {
+        max-width: 100% !important;
+    }
+}

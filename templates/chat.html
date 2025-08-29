@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Chat</title>
+  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+  <h2>Chat - Usuário: {{ user }}</h2>
+
+  <div id="messages">
+    {% for msg in mensagens %}
+      <p><b>{{ msg.usuario }}</b>: {{ msg.texto }} <small>({{ msg.timestamp.strftime('%H:%M') }})</small></p>
+    {% endfor %}
+  </div>
+
+  <input id="myMessage" autocomplete="off">
+  <button onclick="sendMessage()">Enviar</button>
+  <br><br>
+  <a href="/estoque">Ir para Estoque</a> |
+  <a href="/admin">Painel Admin</a> |
+  <a href="/relatorio">Relatório</a>
+
+  <script>
+    var socket = io();
+    var messages = document.getElementById("messages");
+
+    socket.on("message", function(msg){
+      var p = document.createElement("p");
+      p.innerText = msg;
+      messages.appendChild(p);
+    });
+
+    function sendMessage(){
+      var input = document.getElementById("myMessage");
+      if(input.value.trim() !== ""){
+        socket.send(input.value);
+      }
+      input.value = "";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Estoque</title>
+</head>
+<body>
+  <h2>Estoque atual: {{ qtd }}</h2>
+  <h3>Vendas de hoje: {{ vendas }}</h3>
+
+  <form method="post">
+      <button type="submit">Vendido (-1)</button>
+  </form>
+
+  <br>
+  <a href="/chat">Voltar ao Chat</a>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Painel de Administração</title>
+</head>
+<body>
+  <h2>Painel do Administrador</h2>
+  <p>Estoque atual: {{ qtd }}</p>
+  <p>Total de mensagens no chat: {{ mensagens }}</p>
+
+  <form method="POST">
+    <label>Valor inicial estoque:</label>
+    <input type="number" name="valor_inicial" value="100" min="1">
+    <button type="submit" name="reset_estoque">🔄 Resetar Estoque</button>
+  </form>
+
+  <form method="POST">
+    <button type="submit" name="apagar_mensagens">🗑️ Apagar Todas as Mensagens</button>
+  </form>
+
+  <h3>📊 Vendas por Dia</h3>
+  <table border="1" cellpadding="5">
+    <tr>
+      <th>Data</th>
+      <th>Quantidade</th>
+    </tr>
+    {% for data, quantidade in vendas %}
+    <tr>
+      <td>{{ data }}</td>
+      <td>{{ quantidade }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <br>
+  <a href="/chat">Voltar ao Chat</a>
+</body>
+</html>
