@@ -32,6 +32,14 @@ class Mensagem(db.Model):
 class Venda(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.Date, default=date.today)
+    
+class VendaFiado(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    quantidade = db.Column(db.Integer, nullable=False)
+    data_retirada = db.Column(db.Date, nullable=False)
+    data_pagamento = db.Column(db.Date, nullable=False)
+
 
 # -------------------
 # Inicialização
@@ -155,6 +163,46 @@ def handleMessage(msg):
     db.session.add(nova_msg)
     db.session.commit()
     send(f"{user}: {msg}", broadcast=True)
+    
+ # -------------------
+# fiado
+# -------------------    
+@app.route("/vendas_fiado", methods=["GET", "POST"])
+def vendas_fiado_page():
+    if "user" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        nome = request.form["nome"]
+        quantidade = int(request.form["quantidade"])
+        data_retirada = datetime.strptime(request.form["data_retirada"], "%Y-%m-%d").date()
+        data_pagamento = datetime.strptime(request.form["data_pagamento"], "%Y-%m-%d").date()
+
+        nova_venda = VendaFiado(
+            nome=nome,
+            quantidade=quantidade,
+            data_retirada=data_retirada,
+            data_pagamento=data_pagamento
+        )
+        db.session.add(nova_venda)
+        db.session.commit()
+
+        return redirect("/vendas_fiado")
+
+    vendas = VendaFiado.query.all()
+    return render_template("vendas_fiado.html", vendas=vendas)
+@app.route("/vendas_fiado/delete/<int:venda_id>", methods=["POST"])
+def deletar_venda_fiado(venda_id):
+    if "user" not in session:
+        return redirect(url_for("login"))
+
+    venda = VendaFiado.query.get(venda_id)
+    if venda:
+        db.session.delete(venda)
+        db.session.commit()
+
+    return redirect(url_for("vendas_fiado_page"))
+
 
 if __name__ == "__main__":
     socketio.run(
@@ -163,3 +211,6 @@ if __name__ == "__main__":
         port=int(os.environ.get("PORT", 5000)),
         allow_unsafe_werkzeug=True
     )
+
+
+

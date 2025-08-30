@@ -1,17 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Hacker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* ===== Tema Hacker Clean e Centralizado ===== */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #0d0d0d;
+      color: #00ff99;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #111;
+      border: 1px solid #00ff99;
+      border-radius: 12px;
+      padding: 40px 50px;
+      box-shadow: 0 0 20px #00ff99;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      color: #00ffcc;
+      text-shadow: 0 0 5px #00ffcc;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: 1px solid #00ff99;
+      border-radius: 6px;
+      background-color: #111;
+      color: #00ff99;
+      font-size: 1em;
+      font-family: 'Courier New', monospace;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #00cc77;
+      box-shadow: 0 0 10px #00cc77;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 6px;
+      background-color: #00ff99;
+      color: #0d0d0d;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00cc77;
+    }
+
+    /* Placeholder com efeito neon */
+    ::placeholder {
+      color: #00ff99;
+      opacity: 0.7;
+    }
+  </style>
 </head>
 <body>
-  <h2>Login</h2>
-  <form method="POST">
-    <input type="text" name="username" placeholder="Usuário" required><br><br>
-    <input type="password" name="password" placeholder="Senha" required><br><br>
-    <button type="submit">Entrar</button>
-  </form>
+  <div class="login-container">
+    <h2>💻 Login</h2>
+    <form method="POST">
+      <input type="text" name="username" placeholder="Usuário" required>
+      <input type="password" name="password" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
 </body>
 </html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendas Fiado</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    body {
+      background-color: #0f111a;
+      color: #00ff99;
+      padding: 20px;
+      line-height: 1.5;
+    }
+
+    h2, h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 0 0 5px #00ff99;
+    }
+
+    form {
+      background-color: #1a1c2c;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 0 auto 30px auto;
+      box-shadow: 0 0 15px rgba(0,255,153,0.3);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #0f111a;
+      color: #00ff99;
+      border: 1px solid #00ff99;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      background-color: #00ff99;
+      color: #0f111a;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00cc77;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #00ff99;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #1a1c2c;
+    }
+
+    tr:nth-child(even) {
+      background-color: #121426;
+    }
+
+    a {
+      display: inline-block;
+      color: #00ff99;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+      width: 100%;
+    }
+
+    a:hover {
+      color: #00cc77;
+    }
+
+    /* Responsivo para celular */
+    @media (max-width: 600px) {
+      table, th, td {
+        font-size: 14px;
+      }
+
+      form {
+        padding: 15px;
+      }
+
+      button {
+        padding: 10px;
+      }
+    }
+
+    /* Botão de excluir */
+    .delete-btn {
+      background-color: #ff3333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .delete-btn:hover {
+      background-color: #cc0000;
+    }
+  </style>
+</head>
+<body>
+  <h2>💸 Controle de Vendas Fiado</h2>
+
+  <form method="POST">
+    <label>Nome:</label>
+    <input type="text" name="nome" required>
+
+    <label>Quantidade:</label>
+    <input type="number" name="quantidade" min="1" required>
+
+    <label>Data Retirada:</label>
+    <input type="date" name="data_retirada" required>
+
+    <label>Data Pagamento:</label>
+    <input type="date" name="data_pagamento" required>
+
+    <button type="submit">Salvar Venda</button>
+  </form>
+
+  <h3>📋 Vendas Registradas</h3>
+  <table>
+    <tr>
+      <th>Nome</th>
+      <th>Quantidade</th>
+      <th>Data Retirada</th>
+      <th>Data Pagamento</th>
+      <th>Excluir</th>
+    </tr>
+    {% for v in vendas %}
+    <tr>
+      <td>{{ v.nome }}</td>
+      <td>{{ v.quantidade }}</td>
+      <td>{{ v.data_retirada }}</td>
+      <td>{{ v.data_pagamento }}</td>
+      <td>
+        <form action="{{ url_for('deletar_venda_fiado', venda_id=v.id) }}" method="POST" style="display:inline;">
+          <button type="submit" class="delete-btn">X</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <a href="/admin">⬅ Voltar ao Painel</a>
+</body>
+</html>

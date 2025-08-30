@@ -1,14 +1,101 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <title>Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Hacker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+  <style>
+    /* ===== Tema Hacker Clean ===== */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #0d0d0d;
+      color: #00ff99;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h2 {
+      margin-top: 20px;
+      color: #00ffcc;
+      text-shadow: 0 0 5px #00ffcc;
+    }
+
+    #messages {
+      width: 90%;
+      max-width: 800px;
+      background-color: #111;
+      border: 1px solid #00ff99;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 20px 0;
+      overflow-y: auto;
+      max-height: 400px;
+      box-shadow: 0 0 10px #00ff99;
+    }
+
+    #messages p {
+      margin: 5px 0;
+      line-height: 1.4;
+    }
+
+    b {
+      color: #ff00ff;
+    }
+
+    small {
+      color: #999;
+      font-size: 0.8em;
+    }
+
+    input#myMessage {
+      width: 70%;
+      max-width: 600px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #00ff99;
+      background-color: #111;
+      color: #00ff99;
+      font-family: 'Courier New', monospace;
+      font-size: 1em;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #00ff99;
+      color: #0d0d0d;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00cc77;
+    }
+
+    a {
+      color: #00ff99;
+      margin: 0 10px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    a:hover {
+      color: #00cc77;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h2>Chat - Usuário: {{ user }}</h2>
+  <h2>💻 Chat - Usuário: {{ user }}</h2>
 
   <div id="messages">
     {% for msg in mensagens %}
@@ -16,12 +103,16 @@
     {% endfor %}
   </div>
 
-  <input id="myMessage" autocomplete="off">
-  <button onclick="sendMessage()">Enviar</button>
-  <br><br>
-  <a href="/estoque">Ir para Estoque</a> |
-  <a href="/admin">Painel Admin</a> |
-  <a href="/relatorio">Relatório</a>
+  <div>
+    <input id="myMessage" autocomplete="off" placeholder="Digite sua mensagem...">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+
+  <div style="margin-top:20px;">
+    <a href="/estoque"> Estoque</a> |
+    <a href="/admin"> Painel Admin</a> |
+    <a href="/relatorio"> Relatório</a>
+  </div>
 
   <script>
     var socket = io();
@@ -29,8 +120,9 @@
 
     socket.on("message", function(msg){
       var p = document.createElement("p");
-      p.innerText = msg;
+      p.innerHTML = msg;
       messages.appendChild(p);
+      messages.scrollTop = messages.scrollHeight; // Scroll automático
     });
 
     function sendMessage(){

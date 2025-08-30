@@ -1,41 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Painel de Administração</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <h2>Painel do Administrador</h2>
-  <p>Estoque atual: {{ qtd }}</p>
-  <p>Total de mensagens no chat: {{ mensagens }}</p>
+  <header>
+    <h1>Painel do Administrador</h1>
+    <p class="subtitulo">Controle completo do sistema 💻</p>
+  </header>
 
-  <form method="POST">
-    <label>Valor inicial estoque:</label>
-    <input type="number" name="valor_inicial" value="100" min="1">
-    <button type="submit" name="reset_estoque">🔄 Resetar Estoque</button>
-  </form>
+  <section class="status">
+    <div class="card">
+      <h3>📦 Estoque Atual</h3>
+      <p>{{ qtd }}</p>
+    </div>
+    <div class="card">
+      <h3>💬 Total de Mensagens</h3>
+      <p>{{ mensagens }}</p>
+    </div>
+  </section>
 
-  <form method="POST">
-    <button type="submit" name="apagar_mensagens">🗑️ Apagar Todas as Mensagens</button>
-  </form>
+  <section class="forms">
+    <form method="POST" class="formulario">
+      <label>Valor inicial do estoque:</label>
+      <input type="number" name="valor_inicial" value="100" min="1">
+      <button type="submit" name="reset_estoque">🔄 Resetar Estoque</button>
+    </form>
 
-  <h3>📊 Vendas por Dia</h3>
-  <table border="1" cellpadding="5">
-    <tr>
-      <th>Data</th>
-      <th>Quantidade</th>
-    </tr>
-    {% for data, quantidade in vendas %}
-    <tr>
-      <td>{{ data }}</td>
-      <td>{{ quantidade }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+    <form method="POST" class="formulario">
+      <button type="submit" name="apagar_mensagens">🗑️ Apagar Todas as Mensagens</button>
+    </form>
+  </section>
 
-  <br>
-  <a href="/chat">Voltar ao Chat</a>
+  <section class="vendas">
+    <h2>📊 Vendas por Dia</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Quantidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data, quantidade in vendas %}
+        <tr>
+          <td>{{ data }}</td>
+          <td>{{ quantidade }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    <a href="/vendas_fiado" class="link">Vendas Fiado</a> |
+    <a href="/chat" class="link">Voltar ao Chat</a>
+  </footer>
 </body>
 </html>
